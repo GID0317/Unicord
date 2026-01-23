@@ -16,16 +16,26 @@
                             <Color x:Key="BackgroundTertiaryColour">#FFF5F5F5</Color>
                             <Color x:Key="BackgroundSecondaryColour">#FFF0F0F0</Color>
                             <Color x:Key="BackgroundPrimaryColour">#FFEEEEEE</Color>
+                            <!-- Fallback for Windows 11 SubtleFillColor brushes -->
+                            <SolidColorBrush x:Key="SubtleFillColorSecondaryBrush" Color="#0F000000"/>
+                            <SolidColorBrush x:Key="SubtleFillColorTertiaryBrush" Color="#0A000000"/>
                         </ResourceDictionary>
                         <ResourceDictionary x:Key="Dark">
                             <Color x:Key="BackgroundPrimaryColour">#FF0F0F0F</Color>
                             <Color x:Key="BackgroundSecondaryColour">#FF181818</Color>
                             <Color x:Key="BackgroundTertiaryColour">#FF1C1C1C</Color>
+                            <!-- Fallback for Windows 11 SubtleFillColor brushes -->
+                            <SolidColorBrush x:Key="SubtleFillColorSecondaryBrush" Color="#0FFFFFFF"/>
+                            <SolidColorBrush x:Key="SubtleFillColorTertiaryBrush" Color="#0AFFFFFF"/>
                         </ResourceDictionary>
                     </ResourceDictionary.ThemeDictionaries>
 
                     <CornerRadius x:Key="ControlCornerRadius">0,0,0,0</CornerRadius>
                     <CornerRadius x:Key="OverlayCornerRadius">0,0,0,0</CornerRadius>
+
+                    <Style TargetType="FlyoutPresenter" BasedOn="{StaticResource DefaultFlyoutPresenterStyle}">
+                        <Setter Property="CornerRadius" Value="0"/>
+                    </Style>
 
                     <CornerRadius x:Key="AccountsSettings_ProfileCard_CornerRadius">0</CornerRadius>
                     <CornerRadius x:Key="AccountsSettings_ProfileCard_BannerCornerRadius">0</CornerRadius>
@@ -33,6 +43,102 @@
                     <!-- General -->
 
                     <SolidColorBrush x:Key="General_Page_BackgroundBrush" Color="{ThemeResource BackgroundPrimaryColour}"/>
+
+                    <!-- EmotePicker CategoryBar Item Style -->
+                    <Style x:Key="CategoryBarItemStyle" TargetType="GridViewItem">
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="Margin" Value="2,0"/>
+                        <Setter Property="Width" Value="36"/>
+                        <Setter Property="Height" Value="36"/>
+                        <Setter Property="MinWidth" Value="0"/>
+                        <Setter Property="MinHeight" Value="0"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="UseSystemFocusVisuals" Value="True"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="GridViewItem">
+                                    <Grid x:Name="Root" Background="Transparent" BorderThickness="0">
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup x:Name="CommonStates">
+                                                <VisualState x:Name="Normal">
+                                                    <Storyboard>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Root" Storyboard.TargetProperty="Background">
+                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent"/>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RevealBorder" Storyboard.TargetProperty="Visibility">
+                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="PointerOver">
+                                                    <Storyboard>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Root" Storyboard.TargetProperty="Background">
+                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SubtleFillColorTertiaryBrush}"/>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RevealBorder" Storyboard.TargetProperty="Visibility">
+                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="Pressed">
+                                                    <Storyboard>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Root" Storyboard.TargetProperty="Background">
+                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SubtleFillColorSecondaryBrush}"/>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RevealBorder" Storyboard.TargetProperty="Visibility">
+                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="Selected">
+                                                    <Storyboard>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Root" Storyboard.TargetProperty="Background">
+                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SubtleFillColorSecondaryBrush}"/>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RevealBorder" Storyboard.TargetProperty="Visibility">
+                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="PointerOverSelected">
+                                                    <Storyboard>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Root" Storyboard.TargetProperty="Background">
+                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SubtleFillColorSecondaryBrush}"/>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RevealBorder" Storyboard.TargetProperty="Visibility">
+                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="PressedSelected">
+                                                    <Storyboard>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Root" Storyboard.TargetProperty="Background">
+                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SubtleFillColorSecondaryBrush}"/>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RevealBorder" Storyboard.TargetProperty="Visibility">
+                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+                                        <Border x:Name="RevealBorder"
+                                                BorderBrush="{ThemeResource GridViewItemRevealBorderBrush}"
+                                                BorderThickness="1"
+                                                Visibility="Collapsed"/>
+                                        <ContentPresenter x:Name="ContentPresenter"
+                                                          Content="{TemplateBinding Content}"
+                                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                          ContentTransitions="{TemplateBinding ContentTransitions}"
+                                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                          Margin="{TemplateBinding Padding}"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
 
                     <Style x:Key="CleanButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonRevealStyle}">
                         <Setter Property="Background" Value="Transparent"/>
